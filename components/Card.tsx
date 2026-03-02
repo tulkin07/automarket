@@ -22,7 +22,8 @@ export default function Card({ data }:{data:MainProductsType}) {
         </Link>
       </div>
       <div className="pt-6 px-6">
-        <h1 className="text-[#161A1D] text-xl font-semibold">{data.title}</h1>
+        <h1 className="text-[#161A1D] text-xl font-semibold">{data.brandName}</h1>
+        <h1 className="text-[#393a3a] text-lg font-semibold">{data.modelName}</h1>
         <p className="text-[#31383F] text-[13px] leading-5 pt-1 font-[300]">
           {data.description}
         </p>
@@ -31,11 +32,11 @@ export default function Card({ data }:{data:MainProductsType}) {
           <Image src={star} width={16} height={16} alt="avto market" />
           <Image src={star} width={16} height={16} alt="avto market" />
           <Image src={staroutline} width={16} height={16} alt="avto market" />
-          <span>{data.rating}</span>
+          <span>{data.averageRating}</span>
         </p>
 
         <div className="pt-3.5 text-[#3DB8F5] font-bold text-3xl">
-          {data.price} {data.currency}
+          <span className="text-gray-600 text-sm importand">$</span>{data.price} 
         </div>
         <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex items-center gap-4">
           <div className="flex items-center gap-0.5">
@@ -48,7 +49,7 @@ export default function Card({ data }:{data:MainProductsType}) {
           </div>
           <div className="flex items-center gap-0.5">
             <Image src={fuel} width={16} height={16} alt="avto market" />
-            <span>{data.fuel}</span>
+            <span>{data.fuelType}</span>
           </div>
         </div>
       </div>

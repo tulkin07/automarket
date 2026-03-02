@@ -1,30 +1,32 @@
+"use client";
 import React from "react";
 import Card from "./Card";
 import { products } from "@/constants/data";
+import useProductList from "@/app/hooks/useProdcutList";
+import CarCardSkeleton from "./Spinner";
 
-export interface MainProductsType {
-  id:string,
-  title:string,
-  description:string,
-  rating:string,
-  price:number,
-  currency:string,
-  image:string,
-  mileage:string,
-  year:string,
-  fuel:string,
-  transmission:string,
-  color:string
-}
+export type MainProductsType = {
+  id: number;
+  brandName: string;
+  modelName: string;
+  year: number;
+  price: number;
+  mileage: number;
+  color: string;
+  transmission: "AVTOMAT" | "MECHANIC";
+  fuelType: "PETROL" | "DIESEL" | "ELECTRIC" | "HYBRID";
+  bodyType: "SEDAN" | "HATCHBACK" | "SUV" | "COUPE" | "UNIVERSAL";
+  mainImageUrl: string | null;
+  sellerRegion: string | null;
+  status: "APPROVED" | "PENDING" | "REJECTED";
+  createdAt: string | null;
+  description: string;
+  averageRating: number;
+  favorite: boolean;
+};
 
-export default async function MainProducts() {
-  const data:MainProductsType[] = await fetch(
-    "https://6950e18370e1605a1088bb80.mockapi.io/groups",{
-      // cache:"no-store"
-      next:{revalidate:60}
-    }
-    
-  ).then(async (res) => await res.json());
+export default function MainProducts() {
+  const { data, isLoading } = useProductList();
 
   return (
     <div className="  px-5 w-full  py-10">
@@ -32,9 +34,16 @@ export default async function MainProducts() {
         Tavsiya etilgan avtomobillar
       </h4>
       <div className="grid grid-cols-3 gap-5 mt-16">
-        {data.map((product) => (
-          <Card key={product.id} data={product} />
-        ))}
+        {isLoading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <CarCardSkeleton key={index} />
+            ))
+          : data?.content.map((product: MainProductsType) => (
+              <Card key={product.id} data={product} />
+            ))}
+      </div>
+      <div className="text-center ">
+        {!data?.content && !isLoading && "Ma'lumot yoq"}
       </div>
     </div>
   );

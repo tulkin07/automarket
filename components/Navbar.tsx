@@ -1,8 +1,14 @@
+"use client"
 import Link from "next/link";
 import React from "react";
 import logo from "../assets/svg/logo.svg";
 import Image from "next/image";
+import { useAuth } from "@/context/authContext";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useSession } from "@/context/sessionContext";
 export default function Navbar() {
+  const { isAuth } = useAuth();
+  const {userData} = useSession()
   return (
     <nav className="bg-white flex items-center shadow h-16">
       <div className="max-w-5xl mx-auto  px-5 flex items-center justify-between w-full ">
@@ -18,22 +24,53 @@ export default function Navbar() {
           </Link>
           <ul className="flex items-center gap-6">
             <li>
-              <Link href={"#"} className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all">Bosh sahifa</Link>
+              <Link
+                href={"#"}
+                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
+              >
+                Bosh sahifa
+              </Link>
             </li>
             <li>
-              <Link href={"#"} className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all">Avtomobillar</Link>
+              <Link
+                href={"#"}
+                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
+              >
+                Avtomobillar
+              </Link>
             </li>
             <li>
-              <Link href={"#"} className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all">Mashina sotish</Link>
+              <Link
+                href={"#"}
+                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
+              >
+                Mashina sotish
+              </Link>
             </li>
           </ul>
         </div>
         <div className="flex items-center gap-4">
-            {/* <button className="py-2.5 px-4 text-sm font-medium cursor-pointer text-[#161A1D]">Kirish</button> */}
-             <button className="py-2.5 px-4 text-sm font-medium bg-gray-800 rounded-lg text-white cursor-pointer hover:opacity-[0.8]">
-            Kirish
-          </button>
-            <button className="py-2.5 px-4 text-sm font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]">Ro‘yxatdan o‘tish</button>
+          {/* <button className="py-2.5 px-4 text-sm font-medium cursor-pointer text-[#161A1D]">Kirish</button> */}
+          {isAuth ? (
+             <Link
+              href={"/profile"}
+              className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
+            >
+              <AccountCircleIcon sx={{fontSize:"40px"}}/>
+              {/* <span>{userData?.fullName}</span> */}
+            </Link>
+          ) : (
+            <Link
+              href={"/login"}
+              className="py-2.5 px-4 text-sm font-medium bg-gray-800 rounded-lg text-white cursor-pointer hover:opacity-[0.8]"
+            >
+              Kirish
+            </Link>
+          )}
+
+          {/* <button className="py-2.5 px-4 text-sm font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]">
+            Ro‘yxatdan o‘tish
+          </button> */}
         </div>
       </div>
     </nav>

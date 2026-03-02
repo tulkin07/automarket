@@ -1,42 +1,80 @@
+"use client";
+
 import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import useRegister from "./hooks/useRegister";
 
 export default function RegisterPage() {
+  const {isPending,mutate} = useRegister()
+  const [form, setForm] = useState({
+    phone: "",
+    fullName: "",
+    password: "",
+  });
+
+  const handleChange = (key: string, value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    console.log(form)
+     mutate(form)
+  };
+
   return (
-    <div className="bg-white py-8 px-6 rounded-xl shadow min-w-[300px] ">
-      <div>
-        <p className="text-[#55A6F6] text-[23px] leading-6 font-bold text-center">
-          AutoMarket
-        </p>
-        <div className="grid gap-3 mt-6">
-          <FormControl>
-            <FormLabel>Username</FormLabel>
-            <TextField type="text" size="small"></TextField>
-          </FormControl>
+    <div className="bg-white py-8 px-6 rounded-xl shadow min-w-[300px]">
+      <p className="text-[#55A6F6] text-[23px] font-bold text-center">
+        AutoMarket
+      </p>
 
-          <FormControl>
-            <FormLabel>Email</FormLabel>
-            <TextField type="text" size="small"></TextField>
-          </FormControl>
+      <div className="grid gap-3 mt-6">
+        {/* Telefon */}
+        <FormControl>
+          <FormLabel>Telefon</FormLabel>
+          <TextField
+            size="small"
+            value={form.phone}
+            onChange={(e) => handleChange("phone", e.target.value)}
+          />
+        </FormControl>
 
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <TextField type="password" size="small"></TextField>
-          </FormControl>
-        </div>
+        {/* FIO */}
+        <FormControl>
+          <FormLabel>F.I.O</FormLabel>
+          <TextField
+            size="small"
+            value={form.fullName}
+            onChange={(e) => handleChange("fullName", e.target.value)}
+          />
+        </FormControl>
 
-        <div className="mt-3 grid">
-          <Button variant="contained" sx={{ with: "100%" }}>
-            Kirish
-          </Button>
-          <Link
-            href={"/login"}
-            className=" text-center text-[#55A6F6] mt-2 hover:underline transition-all"
-          >
-            Login
-          </Link>
-        </div>
+        {/* Parol */}
+        <FormControl>
+          <FormLabel>Parol</FormLabel>
+          <TextField
+            type="password"
+            size="small"
+            value={form.password}
+            onChange={(e) => handleChange("password", e.target.value)}
+          />
+        </FormControl>
+      </div>
+
+      <div className="mt-3 grid">
+        <Button variant="contained" fullWidth onClick={handleSubmit}>
+          {isPending?"Loading...":"Kirish"}
+        </Button>
+
+        <Link
+          href="/login"
+          className="text-center text-[#55A6F6] mt-2 hover:underline"
+        >
+          Login
+        </Link>
       </div>
     </div>
   );

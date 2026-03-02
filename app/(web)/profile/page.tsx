@@ -5,7 +5,10 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
+import { useSession } from "@/context/sessionContext";
 export default function Profile() {
+
+  const {userData} = useSession()
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -59,15 +62,18 @@ export default function Profile() {
                 <div className="flex flex-col gap-4">
                   <div className="flex gap-10 items-center">
                     <h4 className="w-15 font-medium">Ism</h4>
-                    <input type="text" className="w-full h-10 rounded-md px-2 " placeholder="Ali Valiyev" />
+                    <p>{userData?.fullName}</p>
+                    {/* <input type="text" className="w-full h-10 rounded-md px-2 " placeholder="Ali Valiyev" /> */}
                   </div>
                   <div className="flex gap-10 items-center">
                     <h4 className="w-15 font-medium">Telefon</h4>
-                    <input type="text" className="w-full h-10 rounded-md px-2" placeholder="+998 90 123 45 67" />
+                    <p>{userData?.phone}</p>
+                    {/* <input type="text" className="w-full h-10 rounded-md px-2" placeholder="+998 90 123 45 67" /> */}
                   </div>
                   <div className="flex gap-10 items-center">
-                    <h4 className="w-15 font-medium">Email</h4>
-                    <input type="text" className="w-full h-10 rounded-md px-2 " placeholder="ali.valiyev@example.com" />
+                    <h4 className="w-15 font-medium">Role</h4>
+                    <p>{userData?.role}</p>
+                    {/* <input type="text" className="w-full h-10 rounded-md px-2 " placeholder="ali.valiyev@example.com" /> */}
                   </div>
                 </div>
               </TabPanel>
