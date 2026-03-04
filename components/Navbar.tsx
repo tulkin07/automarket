@@ -1,14 +1,14 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React from "react";
 import logo from "../assets/svg/logo.svg";
 import Image from "next/image";
 import { useAuth } from "@/context/authContext";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSession } from "@/context/sessionContext";
 export default function Navbar() {
   const { isAuth } = useAuth();
-  const {userData} = useSession()
+  const { userData } = useSession();
   return (
     <nav className="bg-white flex items-center shadow h-16">
       <div className="max-w-5xl mx-auto  px-5 flex items-center justify-between w-full ">
@@ -39,25 +39,17 @@ export default function Navbar() {
                 Avtomobillar
               </Link>
             </li>
-            <li>
-              <Link
-                href={"#"}
-                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
-              >
-                Mashina sotish
-              </Link>
-            </li>
           </ul>
         </div>
         <div className="flex items-center gap-4">
           {/* <button className="py-2.5 px-4 text-sm font-medium cursor-pointer text-[#161A1D]">Kirish</button> */}
           {isAuth ? (
-             <Link
+            <Link
               href={"/profile"}
               className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
             >
-              <AccountCircleIcon sx={{fontSize:"40px"}}/>
-              {/* <span>{userData?.fullName}</span> */}
+              <AccountCircleIcon sx={{ fontSize: "40px" }} />
+              <span>Hisobingiz</span>
             </Link>
           ) : (
             <Link
@@ -68,9 +60,11 @@ export default function Navbar() {
             </Link>
           )}
 
-          {/* <button className="py-2.5 px-4 text-sm font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]">
-            Ro‘yxatdan o‘tish
-          </button> */}
+          {isAuth && (
+            <Link href={"/sell"} className="py-2.5 px-4 text-sm font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]">
+              E'lon berish
+            </Link>
+          )}
         </div>
       </div>
     </nav>
