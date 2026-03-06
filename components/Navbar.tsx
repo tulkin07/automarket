@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useAuth } from "@/context/authContext";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSession } from "@/context/sessionContext";
+import { Chat, ChatBubbleOutline } from "@mui/icons-material";
 export default function Navbar() {
   const { isAuth } = useAuth();
   const { userData } = useSession();
@@ -42,6 +43,13 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="flex items-center gap-4">
+          <Link
+              href={"/chat"}
+              className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
+            >
+              <ChatBubbleOutline sx={{ fontSize: "30px" }} className="text-[#3DB8F5]" />
+              <span>Chat</span>
+            </Link>
           {/* <button className="py-2.5 px-4 text-sm font-medium cursor-pointer text-[#161A1D]">Kirish</button> */}
           {isAuth ? (
             <Link
