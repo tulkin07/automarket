@@ -1,10 +1,10 @@
 import { Box, Card, CardContent, Skeleton, Typography } from "@mui/material";
 
-const CarCardSkeleton = () => {
+const CarCardSkeleton = ({width = 300}) => {
   return (
     <Card
       sx={{
-        width: 300,
+        width: width,
         borderRadius: 3,
         boxShadow: 2,
       }}
