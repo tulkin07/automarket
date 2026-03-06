@@ -10,17 +10,28 @@ import { filtersData } from "@/constants/data";
 import CheckboxListSecondary from "./CheckboxListSecondary";
 import { Box, Button } from "@mui/material";
 import Slider from "@mui/material/Slider";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function valuetext(value: number) {
   return `$ ${value}`;
 }
 
 export default function SearchSidebar() {
+  const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
   const [value, setValue] = React.useState<number[]>([1, 100000]);
-
   const handleChange = (event: Event, newValue: number[]) => {
     setValue(newValue);
   };
+
+  const getPrice = ()=>{
+     const params = new URLSearchParams(searchParams.toString());
+     params.set("minPrice",value[0].toString())
+     params.set("maxPrice",value[1].toString())
+
+      router.replace(`${pathname}?${params.toString()}`);
+  }
 
   return (
     <div>
@@ -34,7 +45,7 @@ export default function SearchSidebar() {
             <Typography component="span">{item.label}</Typography>
           </AccordionSummary>
           <AccordionDetails className="overflow-y-auto max-h-[300px]">
-            <CheckboxListSecondary data={item.options} />
+            <CheckboxListSecondary title={item.key} data={item.options} />
           </AccordionDetails>
         </Accordion>
       ))}
@@ -62,7 +73,7 @@ export default function SearchSidebar() {
                 }}
                 value={value[1]}
               />
-              <Button variant="contained">OK</Button>
+              <Button onClick={getPrice} variant="contained">OK</Button>
             </div>
             <div className="mt-5 px-5 ">
               <Slider

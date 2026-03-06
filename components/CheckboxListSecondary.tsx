@@ -6,10 +6,18 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 
-export default function CheckboxListSecondary({ data }) {
-  const [checked, setChecked] = React.useState([1]);
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+
+export default function CheckboxListSecondary({ data, title }) {
+
+  const [checked, setChecked] = React.useState([]);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleToggle = (value) => () => {
+
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -19,16 +27,22 @@ export default function CheckboxListSecondary({ data }) {
       newChecked.splice(currentIndex, 1);
     }
 
+    const params = new URLSearchParams(searchParams.toString());
+    newChecked.map(item =>
+      params.append(title, item)
+    )
+
+
+    router.replace(`${pathname}?${params.toString()}`);
+
     setChecked(newChecked);
   };
 
   return (
-    <List
-      dense
-      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-    >
+    <List dense sx={{ width: "100%", maxWidth: 360 }}>
       {data.map((item) => {
-        const labelId = `checkbox-list-secondary-label-${item.value}`;
+        const labelId = `checkbox-${item.value}`;
+
         return (
           <ListItem
             key={item.value}
@@ -37,10 +51,8 @@ export default function CheckboxListSecondary({ data }) {
                 edge="end"
                 onChange={handleToggle(item.value)}
                 checked={checked.includes(item.value)}
-                inputProps={{ "aria-labelledby": labelId }}
               />
             }
-            disablePadding
           >
             <ListItemButton>
               <ListItemText id={labelId} primary={item.label} />

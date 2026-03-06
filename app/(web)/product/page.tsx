@@ -46,7 +46,7 @@ export default function Search() {
             ))}*/}
               {isLoading
                 ? Array.from({ length: 6 }).map((_, index) => (
-                    <CarCardSkeleton key={index} width={200} />
+                    <CarCardSkeleton key={index} width={300} />
                   ))
                 : data?.content.map((product: MainProductsType) => (
                     <FilteredCard key={product.id} data={product} />
