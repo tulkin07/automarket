@@ -64,7 +64,7 @@ export default function Chat() {
   const [chatActive, setChatActive] = useState<number | null>(null)
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-[1440px] mx-auto">
       <h2>Chat</h2>
       <div className="bg-blue-100 p-5  rounded-2xl w-full h-180 flex justify-between gap-5">
         <div className="w-70 h-full">

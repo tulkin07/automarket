@@ -16,7 +16,7 @@ export default function Detail() {
   console.log(data);
 
   return (
-    <div className=" max-w-5xl mx-auto py-5 flex flex-col gap-7">
+    <div className="max-w-[1440px] mx-auto py-5 flex flex-col gap-7">
       <Image src={Car} alt="Car image" className="w-full h-120 rounded-xl" />
 
       <div className="flex gap-8 text-[#16181D]">

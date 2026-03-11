@@ -15,7 +15,7 @@ export default function Profile() {
     setValue(newValue);
   };
   return (
-    <div className="py-10 max-w-5xl mx-auto px-5">
+    <div className="py-10 max-w-[1440px] mx-auto">
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
           <Box sx={{ display: "flex", gap: "48px", alignItems: "flex-start" }}>

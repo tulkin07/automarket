@@ -11,7 +11,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="py-10 max-w-5xl mx-auto px-5">
+    <div className="py-10 max-w-[1440px] mx-auto">
       <h2 className="text-center text-4xl font-bold">
         Mashinani sotish uchun royxatdan otkazish
       </h2>

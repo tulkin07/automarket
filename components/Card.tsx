@@ -9,47 +9,42 @@ import gauge from "../assets/svg/gauge.svg";
 import calendar from "../assets/svg/calendar.svg";
 import Link from "next/link";
 import { MainProductsType } from "./MainProducts";
+import RatingStars from "./RatingStars";
 export default function Card({ data }:{data:MainProductsType}) {
   return (
-    <div className="w-full shadow rounded-2xl pb-6 ">
-      <div className="overflow-hidden h-[200px] rounded-t-2xl">
+    <div className="w-full overflow-hidden shadow rounded-2xl pb-6">
+      <div className="overflow-hidden h-[250px]">
         <Link href={`product/${data.id}`}>
           <Image
             src={card}
             alt="card"
-            className="w-full h-full hover:scale-[1.2] transition-all"
+            className="w-full h-full scale-101 hover:scale-[1.1] transition-all"
           />
         </Link>
       </div>
       <div className="pt-6 px-6">
-        <h1 className="text-[#161A1D] text-xl font-semibold">{data.brandName}</h1>
-        <h1 className="text-[#393a3a] text-lg font-semibold">{data.modelName}</h1>
-        <p className="text-[#31383F] text-[13px] leading-5 pt-1 font-[300]">
-          {data.description}
-        </p>
-        <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
-          <Image src={star} width={16} height={16} alt="avto market" />
-          <Image src={star} width={16} height={16} alt="avto market" />
-          <Image src={star} width={16} height={16} alt="avto market" />
-          <Image src={staroutline} width={16} height={16} alt="avto market" />
+        <h1 className="text-[#161A1D] text-2xl font-bold">{data.brandName} {data.modelName}</h1>
+        <p className="text-[#31383F] text-[13px] leading-5 pt-1">{data.description}</p>
+        <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-light flex gap-1">
+          <RatingStars rating={data.averageRating} />
           <span>{data.averageRating}</span>
         </p>
 
         <div className="pt-3.5 text-[#3DB8F5] font-bold text-3xl">
-          <span className="text-gray-600 text-sm importand">$</span>{data.price} 
+          <span className="text-gray-600 text-[14px] importand">$</span>{data.price} 
         </div>
         <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex items-center gap-4">
-          <div className="flex items-center gap-0.5">
-            <Image src={gauge} width={16} height={16} alt="avto market" />
-            <span>{data.mileage} km</span>
+          <div className="flex items-center gap-1.5">
+            <Image src={gauge} width={18} height={18} alt="avto market" />
+            <span className="text-[14px]">{data.mileage} km</span>
           </div>
-          <div className="flex items-center gap-0.5">
-            <Image src={calendar} width={16} height={16} alt="avto market" />
-            <span>{data.year}</span>
+          <div className="flex items-center gap-1.5">
+            <Image src={calendar} width={18} height={18} alt="avto market" />
+            <span className="text-[14px]">{data.year}</span>
           </div>
-          <div className="flex items-center gap-0.5">
-            <Image src={fuel} width={16} height={16} alt="avto market" />
-            <span>{data.fuelType}</span>
+          <div className="flex items-center gap-1.5">
+            <Image src={fuel} width={18} height={18} alt="avto market" />
+            <span className="text-[14px]">{data.fuelType}</span>
           </div>
         </div>
       </div>

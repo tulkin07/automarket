@@ -11,8 +11,8 @@ export default function Navbar() {
   const { isAuth } = useAuth();
   const { userData } = useSession();
   return (
-    <nav className="bg-white flex items-center shadow h-16">
-      <div className="max-w-5xl mx-auto  px-5 flex items-center justify-between w-full ">
+    <nav className="bg-white flex z-[1000] items-center shadow h-18  sticky top-0">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between w-full">
         <div className="flex items-center justify-center gap-10">
           <Link
             href="/"
@@ -27,7 +27,7 @@ export default function Navbar() {
             <li>
               <Link
                 href={"#"}
-                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
+                className="font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
               >
                 Bosh sahifa
               </Link>
@@ -35,7 +35,7 @@ export default function Navbar() {
             <li>
               <Link
                 href={"#"}
-                className="text-sm font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
+                className="font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
               >
                 Avtomobillar
               </Link>
@@ -44,17 +44,20 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-4">
           <Link
-              href={"/chat"}
-              className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
-            >
-              <ChatBubbleOutline sx={{ fontSize: "30px" }} className="text-[#3DB8F5]" />
-              <span>Chat</span>
-            </Link>
+            href={"/chat"}
+            className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
+          >
+            <ChatBubbleOutline
+              sx={{ fontSize: "30px" }}
+              className="text-[#3DB8F5]"
+            />
+            <span>Chat</span>
+          </Link>
           {/* <button className="py-2.5 px-4 text-sm font-medium cursor-pointer text-[#161A1D]">Kirish</button> */}
           {isAuth ? (
             <Link
               href={"/profile"}
-              className="py-2.5 px-4 text-sm font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
+              className="py-3 px-6 font-medium rounded-lg  cursor-pointer hover:opacity-[0.8] flex items-center gap-1"
             >
               <AccountCircleIcon sx={{ fontSize: "40px" }} />
               <span>Hisobingiz</span>
@@ -62,15 +65,18 @@ export default function Navbar() {
           ) : (
             <Link
               href={"/login"}
-              className="py-2.5 px-4 text-sm font-medium bg-gray-800 rounded-lg text-white cursor-pointer hover:opacity-[0.8]"
+              className="py-3 px-6 font-medium bg-gray-800 rounded-lg text-white cursor-pointer hover:opacity-[0.8]"
             >
               Kirish
             </Link>
           )}
 
           {isAuth && (
-            <Link href={"/sell"} className="py-2.5 px-4 text-sm font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]">
-              E'lon berish
+            <Link
+              href={"/sell"}
+              className="py-3 px-6 font-medium bg-[#3DB8F5] rounded-lg text-white cursor-pointer hover:opacity-[0.8]"
+            >
+              Elon berish
             </Link>
           )}
         </div>

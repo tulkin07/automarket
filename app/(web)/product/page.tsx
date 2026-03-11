@@ -1,22 +1,20 @@
 "use client";
 
 import useSearchProdcutList from "../../hooks/useSearchProdcutList";
-import Card from "@/components/Card";
 import FilteredCard from "@/components/FilteredCard";
-import MainProducts, { MainProductsType } from "@/components/MainProducts";
+import { MainProductsType } from "@/components/MainProducts";
 import SearchSidebar from "@/components/SearchSidebar";
 import { Pagination, Stack } from "@mui/material";
 import React from "react";
-import { products } from "@/constants/data";
 import CarCardSkeleton from "@/components/Spinner";
 
 export default function Search() {
   const { data, isLoading } = useSearchProdcutList();
   console.log(data);
   return (
-      <div className="py-10 max-w-360 mx-auto px-5">
+      <div className="py-10 max-w-[1440px] mx-auto ">
         <h3 className="text-[#16181D] text-3xl font-bold">
-          Avtomobillar ro'yxati
+          Avtomobillar royxati
         </h3>
         <div className="flex mt-10 gap-5">
           <div className="min-w-[300px] max-w-[300px]  min-h-[250px] border-r border-[#E0E2E6]  ">
