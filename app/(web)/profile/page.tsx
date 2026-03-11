@@ -1,19 +1,27 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useSession } from "@/context/sessionContext";
+import useGetUserAdsStatus from "@/app/hooks/useGetUserAdsStatus";
+export type UserAdsStatus = "APPROVED" | "PENDING" | "REJECTED" | "ARCHIVED"|"SOLD"
 export default function Profile() {
-
-  const {userData} = useSession()
+  const { userData } = useSession()
   const [value, setValue] = React.useState("1");
+  const [status, setStatus] = useState<UserAdsStatus>("APPROVED")
+
+  const {data} = useGetUserAdsStatus(status)
+ console.log(data)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+
+
   return (
     <div className="py-10 max-w-[1440px] mx-auto">
       <Box sx={{ width: "100%", typography: "body1" }}>
@@ -28,30 +36,30 @@ export default function Profile() {
                 orientation="vertical"
               >
                 <Tab
+               
                   label="Mening profilim"
                   value="1"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
+                 onClick={()=>setStatus("APPROVED")}
                   label="Faol e’lonlar"
                   value="2"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
+                 onClick={()=>setStatus("ARCHIVED")}
                   label="Arxivlangan e’lonlar"
                   value="3"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
+                onClick={()=>setStatus("PENDING")}
                   label="Saqlangan mashinalar"
                   value="4"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
-                <Tab
-                  label="Xabarlar"
-                  value="5"
-                  sx={{ display: "flex", alignItems: "flex-start" }}
-                />
+             
               </TabList>
             </Box>
             <div className="border min-h-[250px] w-full border-[#E0E2E6] rounded-[14px]">
