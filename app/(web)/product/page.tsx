@@ -12,7 +12,6 @@ import CarCardSkeleton from "@/components/Spinner";
 
 export default function Search() {
   const { data, isLoading } = useSearchProdcutList();
-  console.log(data);
   return (
       <div className="py-10 max-w-360 mx-auto px-5">
         <h3 className="text-[#16181D] text-3xl font-bold">

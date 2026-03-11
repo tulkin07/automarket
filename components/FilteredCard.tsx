@@ -30,11 +30,15 @@ export default function FilteredCard({ data }:{data:MainProductsType}) {
         <h1 className="text-[#393a3a] text-lg font-semibold">{data.modelName}</h1>
         <div className="pt-3.5 flex justify-between items-center">
           <span className=" text-[#3DB8F5] font-bold text-md">$ { data.price }</span>
+         
           <span className="text-[#575E6B] text-sm font-light">{data.year} yil</span>
         </div>
         <p className="text-[#31383F] text-[13px] leading-4 pt-1 font-[300]">
           {data.description}
         </p>
+         <span className=" text-[#3DB8F5] font-bold text-md"> { data.transmission }</span> <br />
+          <span className=" text-[#3DB8F5] font-bold text-md"> { data.fuelType }</span>
+          <span className=" text-[#3DB8F5] font-bold text-md"> { data.color }</span>
       </div>
     </div>
   );
