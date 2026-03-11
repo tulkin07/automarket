@@ -6,11 +6,11 @@ import Link from "next/link";
 export default function Hero() {
   const [search, setSearch] = useState("");
   return (
-    <div className="w-full relative h-[calc(100vh)] flex items-center justify-center">
+    <div className="w-full relative h-[80vh] flex items-center justify-center">
       <Image
         src={hero}
         fill
-        className="object-cover w-full "
+        className="object-cover w-full"
         alt="AUTOMARKET"
       />
       <div className="absolute w-full h-full bg-[rgba(0,0,0,0.5)]"></div>
@@ -30,10 +30,10 @@ export default function Hero() {
             Qidirish
           </Link>
         </div>
-        <h1 className="text-white text-[60px] leading-14">
+        <h1 className="text-white text-[50px] leading-18">
           Eng yaxshi mashinalarni toping va sotib oling
         </h1>
-        <p className="text-white text-[24px] pt-6 leading-14">
+        <p className="text-white text-[16px] pt-6 leading-14">
           Orzuingizdagi avtomobilni bir necha oddiy qadamda toping.
         </p>
       </div>

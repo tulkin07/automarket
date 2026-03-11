@@ -29,14 +29,14 @@ export default function MainProducts() {
   const { data, isLoading } = useProductList();
 
   return (
-    <div className="  px-5 w-full  py-10">
+    <div className="w-full  py-10">
       <h4 className="text-[#161A1D] text-center font-semibold text-4xl">
         Tavsiya etilgan avtomobillar
       </h4>
       <div className="grid grid-cols-3 gap-5 mt-16">
         {isLoading
           ? Array.from({ length: 6 }).map((_, index) => (
-              <CarCardSkeleton key={index} />
+            <CarCardSkeleton key={index} width={465}/>
             ))
           : data?.content.map((product: MainProductsType) => (
               <Card key={product.id} data={product} />
