@@ -29,9 +29,9 @@ export default function CustomerMessage() {
                 <p className="text-[#31383F] text-sm">Yangi avtomobil egasi</p>
               </div>
             </div>
-            <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
+            <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
               <RatingStars rating={4} />
-            </p>
+            </div>
             <p className=" text-[#31383F] text-[16px] leading-7 mt-4 font-normal">
               Avtomobillar assortimenti ajoyib. Menga BMW 3 Series juda maqul
               keldi. Saytning tezkorligi va samaradorligi uchun rahmat!
@@ -54,9 +54,9 @@ export default function CustomerMessage() {
                 <p className="text-[#31383F] text-sm">Baxtli mijoz</p>
               </div>
             </div>
-            <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
+            <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
               <RatingStars rating={4} />
-            </p>
+            </div>
             <p className=" text-[#31383F] text-[16px] leading-7 mt-4 font-normal">
               Qidiruv funksiyasi juda aniq ishladi. Narxlar ham juda mos keladi. VitaSoft Cars ni hammaga tavsiya qilaman!
             </p>
@@ -78,9 +78,9 @@ export default function CustomerMessage() {
                 <p className="text-[#31383F] text-sm">Qoniqarli xaridor</p>
               </div>
             </div>
-            <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
+            <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-[300] flex gap-1">
               <RatingStars rating={5} />
-            </p>
+            </div>
             <p className=" text-[#31383F] text-[16px] leading-7 mt-4 font-normal">
               AutoMarket Cars orqali mashina topish juda oson boldi. Katta tanlov va qulay interfeys meni hayratda qoldirdi. Xizmat uchun rahmat!
             </p>

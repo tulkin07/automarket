@@ -25,10 +25,10 @@ export default function Card({ data }:{data:MainProductsType}) {
       <div className="pt-6 px-6">
         <h1 className="text-[#161A1D] text-2xl font-bold">{data.brandName} {data.modelName}</h1>
         <p className="text-[#31383F] text-[13px] leading-5 pt-1">{data.description}</p>
-        <p className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-light flex gap-1">
+        <div className="text-[#31383F] text-[13px] leading-5 pt-3.5 font-light flex gap-1">
           <RatingStars rating={data.averageRating} />
           <span>{data.averageRating}</span>
-        </p>
+        </div>
 
         <div className="pt-3.5 text-[#3DB8F5] font-bold text-3xl">
           <span className="text-gray-600 text-[14px] importand">$</span>{data.price} 
