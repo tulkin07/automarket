@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import api from "../service/api"
 
-const useProdcutDetails = ({ id }) => {
+const useProdcutDetails = ({ id }: {id: string}) => {
     const { isLoading, data } = useQuery({
         queryKey: ["product-details"],
         queryFn: () => api.get(`/cars/get/${id}`).then(res => res.data),

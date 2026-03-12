@@ -37,4 +37,3 @@ const useSearchProdcutList = () => {
     return { isLoading, data }
 }
 export default useSearchProdcutList
-

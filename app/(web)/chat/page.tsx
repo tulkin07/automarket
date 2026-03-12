@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import xSymbol from "../../../assets/svg/x-symbol.svg";
 
 interface ChatType {
@@ -192,10 +192,28 @@ export default function Chat() {
   const [chatActive, setChatActive] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const shouldScrollRef = useRef(false);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   const activeChat = chats.find((c) => c.id === chatActive);
 
+  useEffect(() => {
+    if (shouldScrollRef.current && messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+      shouldScrollRef.current = false;
+    }
+  }, [activeChat?.messages]);
+
   const handleSetActive = (id: number) => {
+    if (activeChat) {
+      setChats((prev) =>
+        prev.map((c) =>
+          c.id === activeChat.id ? { ...c, draft: inputValue } : c
+        )
+      );
+    }
+  
     const chat = chats.find((c) => c.id === id);
     setChatActive(id);
     setInputValue(chat?.draft || "");
@@ -212,6 +230,7 @@ export default function Chat() {
         minute: "2-digit",
       }),
     };
+    shouldScrollRef.current = true;
     setChats((prev) =>
       prev.map((c) =>
         c.id === activeChat.id
@@ -235,7 +254,7 @@ export default function Chat() {
 
   return (
     <div className="w-full">
-      <div className="flex w-full mx-auto max-w-[1440px] h-[90vh] bg-white">
+      <div className="flex w-full mx-auto max-w-[1440px] h-[94vh] bg-white">
         <div className="w-[350px] border-r flex flex-col">
           <div className="h-[60px] flex items-center px-4 text-lg font-semibold">
             <input
@@ -244,7 +263,7 @@ export default function Chat() {
               placeholder="Qidirish"
             />
           </div>
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto select-none">
             {chats.map((chat) => (
               <div
                 key={chat.id}
@@ -261,7 +280,11 @@ export default function Chat() {
                   <span className="font-semibold">
                     {chat.user.firstName} {chat.user.lastName}
                   </span>
-                  <span className={`${chat.draft ? "text-red-500" : "text-gray-500"} text-sm truncate w-[160px]`}>
+                  <span
+                    className={`${
+                      chat.draft ? "text-red-500" : "text-gray-500"
+                    } text-sm truncate w-[160px]`}
+                  >
                     {chat.draft
                       ? `Qoralama: ${chat.draft}`
                       : chat.messages.at(-1)?.text || "No messages"}
@@ -272,7 +295,10 @@ export default function Chat() {
           </div>
         </div>
 
-        <div className="flex flex-col flex-1 bg-gray-50" style={{scrollbarWidth: "none"}}>
+        <div
+          className="flex flex-col flex-1 bg-gray-50"
+          style={{ scrollbarWidth: "none" }}
+        >
           {chatActive !== null && activeChat && (
             <>
               <div className="h-[60px] flex items-center gap-3 px-6 bg-white">
@@ -292,7 +318,10 @@ export default function Chat() {
               </div>
 
               <div
-                className="flex-1 px-6 py-4 flex flex-col gap-3 bg-gradient-to-br from-[#eaf5e9] to-[#d0f0b0] overflow-y-auto" style={{scrollbarWidth: "none"}}>
+                className="flex-1 px-6 py-4 flex flex-col gap-3 bg-gradient-to-br from-[#eaf5e9] to-[#d0f0b0] overflow-y-auto"
+                style={{ scrollbarWidth: "none" }}
+                ref={messagesContainerRef}
+              >
                 {activeChat.messages.map((msg) => (
                   <div
                     key={msg.id}
