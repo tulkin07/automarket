@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function HowWorks() {
   return (
     <div className="w-full py-24 bg-[#D8F1FD] ">
-      <div className=" max-w-[1440px] mx-auto">
+      <div className=" max-w-[1440px] px-5 mx-auto">
         <h4 className="text-[#161A1D] text-center font-semibold text-4xl">
           Qanday ishlaydi?
         </h4>

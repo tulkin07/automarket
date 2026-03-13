@@ -235,7 +235,7 @@ export default function Chat() {
 
   return (
     <div className="w-full">
-      <div className="flex w-full mx-auto max-w-[1440px] h-[90vh] bg-white">
+      <div className="flex w-full mx-auto max-w-[1440px] px-5 h-[90vh] bg-white">
         <div className="w-[350px] border-r flex flex-col">
           <div className="h-[60px] flex items-center px-4 text-lg font-semibold">
             <input

@@ -8,7 +8,7 @@ import RatingStars from "./RatingStars";
 export default function CustomerMessage() {
   return (
     <div className="w-full py-24 ">
-      <div className=" max-w-[1440px] mx-auto">
+      <div className=" max-w-[1440px] px-5 mx-auto">
         <h4 className="text-[#161A1D] text-center font-semibold text-4xl">
           Mijozlar fikrlari
         </h4>

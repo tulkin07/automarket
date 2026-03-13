@@ -1,131 +1,289 @@
+"use client";
+
+import useBarandList from "@/app/hooks/useBarandList";
+import useBarandOfModelList from "@/app/hooks/useBarandOfModelList";
+import useCreateCar from "@/app/hooks/useCreateCar";
 import UploadButton from "@/components/Upload";
+import { filtersData } from "@/constants/data";
 import {
-    Button,
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-export default function page() {
+// const brands = [
+//   { id: 1, name: "Toyota" },
+//   { id: 2, name: "BMW" },
+//   { id: 3, name: "Mercedes" },
+// ];
+
+
+
+export default function Page() {
+
+  const [form, setForm] = useState({
+    brandId: "",
+    modelId: "",
+    year: "",
+    price: "",
+    mileage: "",
+    color: "",
+    transmission: "",
+    fuelType: "",
+    bodyType: "",
+    description: "",
+    vin: "",
+    stateNumber: "",
+  });
+
+  const { brands, isLoading } = useBarandList()
+  const { models, IsLoadingModles } = useBarandOfModelList(form.brandId)
+  const {createCar,isPending} = useCreateCar()
+
+  const handleChange = (field: string, value: any) => {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = () => {
+    const payload = {
+      brandId: Number(form.brandId),
+      modelId: Number(form.modelId),
+      year: Number(form.year),
+      price: Number(form.price),
+      mileage: Number(form.mileage),
+      color: form.color,
+      transmission: form.transmission,
+      fuelType: form.fuelType,
+      bodyType: form.bodyType,
+      description: form.description,
+      vin: form.vin,
+      stateNumber: form.stateNumber,
+    };
+
+    createCar(payload,{
+      onSuccess:()=>{
+         toast("Success",{type:"success"})
+      },
+      onError:(err)=>{
+        toast(err?.message,{type:"error"})
+      }
+    })
+  };
+
   return (
-    <div className="py-10 max-w-[1440px] mx-auto">
+    <div className="py-10 max-w-[1440px] px-5 mx-auto">
       <h2 className="text-center text-4xl font-bold">
         Mashinani sotish uchun royxatdan otkazish
       </h2>
+
       <p className="text-[#575E6B] text-[18px] text-center my-8">
         Avtomobilingizni soting. Malumotlarni toldiring va tezda elon qiling.
       </p>
-      <div className="w-full">
+
+      <div>
         <h3 className="font-medium text-2xl">Avtomobil malumotlari</h3>
+
         <div className="grid grid-cols-2 gap-8 mt-5">
+
+          {/* Brand */}
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Marka</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>Toyata</MenuItem>
-              <MenuItem value={20}>BMW</MenuItem>
-              <MenuItem value={30}>Mercedenz Benz</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Model</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>C class</MenuItem>
-              <MenuItem value={20}>m5 f90</MenuItem>
-              <MenuItem value={30}>E class</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Yil</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>2010</MenuItem>
-              <MenuItem value={10}>2011</MenuItem>
-              <MenuItem value={10}>2012</MenuItem>
-              <MenuItem value={10}>2013</MenuItem>
-              <MenuItem value={10}>2014</MenuItem>
-              <MenuItem value={10}>2015</MenuItem>
-              <MenuItem value={10}>2016</MenuItem>
-              <MenuItem value={10}>2017</MenuItem>
-              <MenuItem value={10}>2018</MenuItem>
-              <MenuItem value={10}>2019</MenuItem>
-              <MenuItem value={10}>2020</MenuItem>
-              <MenuItem value={10}>2021</MenuItem>
-              <MenuItem value={10}>2022</MenuItem>
-              <MenuItem value={10}>2023</MenuItem>
-              <MenuItem value={10}>2024</MenuItem>
-              <MenuItem value={10}>2025</MenuItem>
+            <InputLabel>Brand</InputLabel>
+            <Select
+              value={form.brandId}
+              label="Brand"
+              onChange={(e) => handleChange("brandId", e.target.value)}
+            >
+              {
+                isLoading ? <MenuItem >Loading...</MenuItem>
+                  :
+                  brands?.map((brand) => (
+                    <MenuItem key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </MenuItem>
+                  ))
+              }
             </Select>
           </FormControl>
 
-          <TextField fullWidth placeholder="Price" />
+          {/* Model */}
+          <FormControl fullWidth>
+            <InputLabel>Model</InputLabel>
+            <Select
+              value={form.modelId}
+              label="Model"
+              onChange={(e) => handleChange("modelId", e.target.value)}
+            >
 
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label" sx={{ width: "100%" }}>
-              Marka
-            </InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {
+                IsLoadingModles ? <MenuItem >Loading...</MenuItem> :
+                  models?.map((model) => (
+                    <MenuItem key={model.id} value={model.id}>
+                      {model.name}
+                    </MenuItem>
+                  ))}
             </Select>
           </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Marka</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Marka</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Marka</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select">
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className="my-8">
-          <h4 className="mb-2 font-medium text-sm">Qoshimcha tavsif</h4>
+
+          {/* Year */}
           <TextField
-            multiline
+            label="Year"
+            type="number"
             fullWidth
-            label="Avtomobil haqida qo'shimcha ma'lumotlar, misol uchun: texnik holati, qo'shimcha funksiyalar..."
-            rows={4}
-            variant="outlined"
+            value={form.year}
+            onChange={(e) => handleChange("year", e.target.value)}
+          />
+
+          {/* Price */}
+          <TextField
+            label="Price"
+            type="number"
+            fullWidth
+            value={form.price}
+            onChange={(e) => handleChange("price", e.target.value)}
+          />
+
+          {/* Mileage */}
+          <TextField
+            label="Mileage"
+            type="number"
+            fullWidth
+            value={form.mileage}
+            onChange={(e) => handleChange("mileage", e.target.value)}
+          />
+
+          {/* Color */}
+          <FormControl fullWidth>
+            <InputLabel>Color</InputLabel>
+            <Select
+              value={form.color}
+              label="Color"
+              onChange={(e) => handleChange("color", e.target.value)}
+            >
+              {
+                filtersData?.map(item => {
+                  if (item.key == "color") {
+                    return item.options?.map(el => <MenuItem key={el?.value} value={el?.value}>{el?.label}</MenuItem>)
+                  }
+                })
+              }
+            </Select>
+          </FormControl>
+
+          {/* Transmission */}
+          <FormControl fullWidth>
+            <InputLabel>Transmission</InputLabel>
+            <Select
+              value={form.transmission}
+              label="Transmission"
+              onChange={(e) => handleChange("transmission", e.target.value)}
+            >
+              {
+                filtersData?.map(item => {
+                  if (item.key == "transmission") {
+                    return item.options?.map(el => <MenuItem key={el?.value} value={el?.value}>{el?.label}</MenuItem>)
+                  }
+                })
+              }
+            </Select>
+          </FormControl>
+
+          {/* Fuel type */}
+          <FormControl fullWidth>
+            <InputLabel>Fuel type</InputLabel>
+            <Select
+              value={form.fuelType}
+              label="Fuel type"
+              onChange={(e) => handleChange("fuelType", e.target.value)}
+            >
+              {
+                filtersData?.map(item => {
+                  if (item.key == "fuel") {
+                    return item.options?.map(el => <MenuItem key={el?.value} value={el?.value}>{el?.label}</MenuItem>)
+                  }
+                })
+              }
+            </Select>
+          </FormControl>
+
+          {/* Body type */}
+          <TextField
+            label="Body type"
+            fullWidth
+            value={form.bodyType}
+            onChange={(e) => handleChange("bodyType", e.target.value)}
+          />
+
+          {/* VIN */}
+          <TextField
+            label="VIN"
+            fullWidth
+            value={form.vin}
+            onChange={(e) => handleChange("vin", e.target.value)}
+          />
+
+          {/* State number */}
+          <TextField
+            label="State number"
+            fullWidth
+            value={form.stateNumber}
+            onChange={(e) => handleChange("stateNumber", e.target.value)}
           />
         </div>
 
-        <div>
-            <h3 className="pb-8 text-[#16181D] text-2xl font-medium ">Suratlarni yuklash</h3>
-            <UploadButton/>
+        {/* Description */}
+        <div className="my-8">
+          <TextField
+            multiline
+            fullWidth
+            label="Qo'shimcha tavsif"
+            rows={4}
+            value={form.description}
+            onChange={(e) => handleChange("description", e.target.value)}
+          />
         </div>
+
+        {/* Upload */}
         <div>
-            <h3 className="text-[#16181D] font-medium text-2xl leading-6 my-10 ">Boglanish malumotlari</h3>
-            <div className="flex gap-10">
-             <div className="flex flex-col gap-2 w-full">
-                <p className="text-[#16181D] text-[14px] font-md ">Ism</p>
-                 <TextField fullWidth placeholder="Ismingizni kiriting"  />
-             </div>
-              <div className="flex flex-col gap-2 w-full">
-                <p className="text-[#16181D] text-[14px] font-md ">Telefon raqami</p>
-                   <TextField fullWidth  placeholder="+998 90 123 45 67"/>
-             </div>
-            </div>
-            <div className="flex justify-center mt-4">
-            <Button variant="contained" className="w-full rounded-md!">Elonni tasdiqlash</Button>
-            </div>
+          <h3 className="pb-8 text-[#16181D] text-2xl font-medium">
+            Suratlarni yuklash
+          </h3>
+          <UploadButton />
+        </div>
+
+        {/* Contact */}
+        <div>
+          <h3 className="text-[#16181D] font-medium text-2xl my-10">
+            Boglanish malumotlari
+          </h3>
+
+          <div className="flex gap-10">
+            <TextField fullWidth label="Ism" placeholder="Ismingizni kiriting" />
+            <TextField
+              fullWidth
+              label="Telefon"
+              placeholder="+998 90 123 45 67"
+            />
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              className="w-full rounded-md!"
+            >
+              {
+                isPending?"Loading...":"Elonni tasdiqlash"
+              }
+            </Button>
+          </div>
         </div>
       </div>
     </div>

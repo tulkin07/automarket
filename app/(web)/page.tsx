@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="">
       <Hero />
-      <main className="mt-24 max-w-[1440px] mx-auto ">
+      <main className="mt-24 max-w-[1440px] px-5 mx-auto ">
         <Suspense fallback={<Spinner/>}>
             <MainProducts />
         </Suspense>

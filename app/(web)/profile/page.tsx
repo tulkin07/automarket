@@ -7,14 +7,18 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useSession } from "@/context/sessionContext";
 import useGetUserAdsStatus from "@/app/hooks/useGetUserAdsStatus";
-export type UserAdsStatus = "APPROVED" | "PENDING" | "REJECTED" | "ARCHIVED"|"SOLD"
+import CarCardSkeleton from "@/components/Spinner";
+import FilteredCard from "@/components/FilteredCard";
+import { MainProductsType } from "@/components/MainProducts";
+import UserProductCard from "@/components/UserProductCard";
+export type UserAdsStatus = "APPROVED" | "PENDING" | "REJECTED" | "ARCHIVED" | "SOLD"
 export default function Profile() {
   const { userData } = useSession()
   const [value, setValue] = React.useState("1");
   const [status, setStatus] = useState<UserAdsStatus>("APPROVED")
 
-  const {data} = useGetUserAdsStatus(status)
- console.log(data)
+  const { data, isLoading } = useGetUserAdsStatus(status)
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -23,7 +27,7 @@ export default function Profile() {
 
 
   return (
-    <div className="py-10 max-w-[1440px] mx-auto">
+    <div className="py-10 max-w-[1440px] px-5 mx-auto">
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
           <Box sx={{ display: "flex", gap: "48px", alignItems: "flex-start" }}>
@@ -36,30 +40,30 @@ export default function Profile() {
                 orientation="vertical"
               >
                 <Tab
-               
+
                   label="Mening profilim"
                   value="1"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
-                 onClick={()=>setStatus("APPROVED")}
+                  onClick={() => setStatus("APPROVED")}
                   label="Faol e’lonlar"
                   value="2"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
-                 onClick={()=>setStatus("ARCHIVED")}
+                  onClick={() => setStatus("ARCHIVED")}
                   label="Arxivlangan e’lonlar"
                   value="3"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
                 <Tab
-                onClick={()=>setStatus("PENDING")}
+                  onClick={() => setStatus("PENDING")}
                   label="Saqlangan mashinalar"
                   value="4"
                   sx={{ display: "flex", alignItems: "flex-start" }}
                 />
-             
+
               </TabList>
             </Box>
             <div className="border min-h-[250px] w-full border-[#E0E2E6] rounded-[14px]">
@@ -85,7 +89,15 @@ export default function Profile() {
                   </div>
                 </div>
               </TabPanel>
-              <TabPanel value="2">Item Two</TabPanel>
+              <TabPanel value="2">
+                {isLoading
+                  ? Array.from({ length: 6 }).map((_, index) => (
+                    <CarCardSkeleton key={index} width={300} />
+                  ))
+                  : data?.content.map((product: MainProductsType) => (
+                    <UserProductCard key={product.id} data={product} />
+                  ))}
+              </TabPanel>
               <TabPanel value="3">Item Three</TabPanel>
               <TabPanel value="4">Item Three</TabPanel>
               <TabPanel value="5">Item Three</TabPanel>

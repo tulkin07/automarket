@@ -12,7 +12,7 @@ export default function Navbar() {
   const { userData } = useSession();
   return (
     <nav className="bg-white flex z-[1000] items-center shadow h-18  sticky top-0">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between w-full">
+      <div className="max-w-[1440px] px-5 mx-auto flex items-center justify-between w-full">
         <div className="flex items-center justify-center gap-10">
           <Link
             href="/"
@@ -34,7 +34,7 @@ export default function Navbar() {
             </li>
             <li>
               <Link
-                href={"#"}
+                href={"/product"}
                 className="font-medium text-[#161A1D] hover:text-[#3DB8F5] transition-all"
               >
                 Avtomobillar
