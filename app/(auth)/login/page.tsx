@@ -8,12 +8,13 @@ import useLogin from "./hooks/useLogin";
 export default function LoginPage() {
   const { mutate, isPending } = useLogin();
   const [user, setUser] = useState({ phone: "", password: "" });
-  const login = () => {
+  const login = (e) => {
+    e.preventDefault()
     mutate(user);
   };
   return (
     <div className="bg-white py-8 px-6 rounded-xl shadow min-w-[300px] ">
-      <div>
+      <form>
         <p className="text-[#55A6F6] text-[23px] leading-6 font-bold text-center">
           AutoMarket
         </p>
@@ -42,7 +43,7 @@ export default function LoginPage() {
         </div>
 
         <div className="mt-3 grid">
-          <Button onClick={login} variant="contained" sx={{ with: "100%" }}>
+          <Button type="submit" onClick={login} variant="contained" sx={{ with: "100%" }}>
             {isPending?"Laoding...":"Kirish"} 
           </Button>
           <Link
@@ -52,7 +53,7 @@ export default function LoginPage() {
             Royxatdan otish
           </Link>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

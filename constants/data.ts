@@ -10,7 +10,7 @@ export const filtersData = [
   //   key: "marka",
   //   label: "Marka",
   //   options: [
-
+     
   //   ],
   // },
   // {
@@ -73,3 +73,13 @@ export const products: MainProductsType[] = [];
 //   { label: "CVT", value: Transmission.CVT },
 //   { label: "Robotic", value: Transmission.ROBOTIC },
 // ];
+
+
+
+export const bodyTypeOptions = [
+  { label: "Sedan", value: "SEDAN" },
+  { label: "Hatchback", value: "HATCHBACK" },
+  { label: "SUV", value: "SUV" },
+  { label: "Coupe", value: "COUPE" },
+  { label: "Universal", value: "UNIVERSAL" },
+];

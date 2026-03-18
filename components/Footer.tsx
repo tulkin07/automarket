@@ -9,7 +9,7 @@ import linkiden from "../assets/svg/linkiden.svg";
 export default function Footer() {
   return (
     <div className="bg-[#f3f5f6] pt-20 pb-15 relative bottom-0 flex justify-center">
-      <div className="max-w-[1440px] w-full flex flex-col">
+      <div className="max-w-[1440px] px-5 w-full flex flex-col">
         <div className="flex w-full justify-between ">
           <div className="mr-50">
             <Link

@@ -21,8 +21,8 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function ImageUploadPreview() {
-  const [images, setImages] = useState<File[]>([]);
+export default function ImageUploadPreview({setAllImages, images}:{setAllImages:React.Dispatch<React.SetStateAction<File[]>>; images: File[]}) {
+  // const [images, setImages] = useState<File[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -31,11 +31,11 @@ export default function ImageUploadPreview() {
       file.type.startsWith("image/"),
     );
 
-    setImages((prev) => [...prev, ...files]);
+    setAllImages((prev) => [...prev, ...files]);
   };
 
   const removeImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    setAllImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (

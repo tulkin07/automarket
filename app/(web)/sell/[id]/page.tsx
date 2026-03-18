@@ -31,8 +31,6 @@ export default function Page() {
     fuelType: "",
     bodyType: "",
     description: "",
-    contactName:"",
-    contactPhone:""
   });
 
   const { brands, isLoading } = useBarandList()
@@ -58,8 +56,6 @@ export default function Page() {
       fuelType: form.fuelType,
       bodyType: form.bodyType,
       description: form.description,
-      contactName: form.contactName,
-      contactPhone: form.contactPhone
     };
  
     formData.append("data", JSON.stringify(payload));
@@ -81,8 +77,6 @@ export default function Page() {
             fuelType: "",
             bodyType: "",
             description: "",
-            contactName:"",
-            contactPhone:""
           })
           setAllImages([])
       },
@@ -273,19 +267,11 @@ export default function Page() {
           </h3>
 
           <div className="flex gap-10">
-            <TextField 
-              fullWidth 
-              label="Ism" 
-              placeholder="Ismingizni kiriting" 
-              value={form.contactName}
-              onChange={(e) => handleChange("contactName", e.target.value)}
-            />
+            <TextField fullWidth label="Ism" placeholder="Ismingizni kiriting" />
             <TextField
               fullWidth
               label="Telefon"
               placeholder="+998 90 123 45 67"
-              value={form.contactPhone}
-              onChange={(e) => handleChange("contactPhone", e.target.value)}
             />
           </div>
 

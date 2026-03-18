@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -9,39 +9,34 @@ import Checkbox from "@mui/material/Checkbox";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function CheckboxListSecondary({ data, title }) {
-
-  const [checked, setChecked] = React.useState([]);
-
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const handleToggle = (value) => () => {
+    const val = String(value);
+    const params = new URLSearchParams(searchParams.toString());
+    const values = params.getAll(title);
 
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+    if (values.includes(val)) {
+      const filtered = values.filter((v) => v !== val);
+      params.delete(title);
+      filtered.forEach((v) => params.append(title, v));
     } else {
-      newChecked.splice(currentIndex, 1);
+      params.append(title, val);
     }
 
-    const params = new URLSearchParams(searchParams.toString());
-    newChecked.map(item =>
-      params.append(title, item)
-    )
-
-
     router.replace(`${pathname}?${params.toString()}`);
-
-    setChecked(newChecked);
   };
 
   return (
     <List dense sx={{ width: "100%", maxWidth: 360 }}>
       {data.map((item) => {
         const labelId = `checkbox-${item.value}`;
+
+        const checked = searchParams
+          .getAll(title)
+          .includes(String(item.value));
 
         return (
           <ListItem
@@ -50,11 +45,11 @@ export default function CheckboxListSecondary({ data, title }) {
               <Checkbox
                 edge="end"
                 onChange={handleToggle(item.value)}
-                checked={checked.includes(item.value)}
+                checked={checked}
               />
             }
           >
-            <ListItemButton>
+            <ListItemButton onClick={handleToggle(item.value)}>
               <ListItemText id={labelId} primary={item.label} />
             </ListItemButton>
           </ListItem>

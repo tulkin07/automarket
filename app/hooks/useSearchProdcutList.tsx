@@ -15,10 +15,13 @@ const useSearchProdcutList = () => {
     const transmission = params.getAll("transmission")
     const brands = params.getAll("brands")
     const color = params.getAll("color")
+    const keyword = params.getAll("text")
+    const direction = params.getAll("direction")
+    const page = params.get("page")
 
     const { isLoading, data } = useQuery({
-        queryKey: ["product-search-list", minPrice, maxPrice, fuelType, transmission, color, minYear, maxYear,brands],
-        queryFn: () => api.get("/cars/all/search?size=50", {
+        queryKey: ["product-search-list", minPrice, maxPrice, fuelType, transmission, color, minYear, maxYear,brands,keyword,direction,page],
+        queryFn: () => api.get("/cars/search?page=" + (page || 1), {
             params: {
                 minPrice,
                 maxPrice,
@@ -27,7 +30,10 @@ const useSearchProdcutList = () => {
                 color,
                 minYear,
                 maxYear,
-                brands
+                brands,
+                keyword,
+                direction,
+                sortBy:"price"
             }
         }).then(res => res.data),
 

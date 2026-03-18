@@ -10,7 +10,7 @@ import { MainProductsType } from "./MainProducts";
 import Link from "next/link";
 export default function FilteredCard({ data }:{data:MainProductsType}) {
     return (
-        <div className="w-full shadow rounded-2xl pb-6">
+        <div className="w-full shadow rounded-2xl pb-6 relative">
             <div className="overflow-hidden h-[200px] rounded-t-2xl">
                 {/*<Image
           src={card}
@@ -19,10 +19,11 @@ export default function FilteredCard({ data }:{data:MainProductsType}) {
         />*/}
                 <Link href={`product/${data.id}`}>
                     <Image
-                        src={card}
-                        alt="card"
-                        className="w-full h-full hover:scale-[1.2] transition-all"
-                    />
+                                fill
+                                src={`https://procuratorial-phrenetically-yessenia.ngrok-free.dev/${data?.mainImageUrl}` || card}
+                                alt="card"
+                                className="w-full h-full scale-101 hover:scale-[1.1] transition-all w-full h-full"
+                              />
                 </Link>
             </div>
             <div className="pt-6 px-6">
@@ -33,12 +34,6 @@ export default function FilteredCard({ data }:{data:MainProductsType}) {
 
                     <span className="text-[#575E6B] text-sm font-light">{data.year} yil</span>
                 </div>
-                <p className="text-[#31383F] text-[13px] leading-4 pt-1 font-[300]">
-                    {data.description}
-                </p>
-                <span className=" text-[#3DB8F5] font-bold text-md"> { data.transmission }</span> <br />
-                <span className=" text-[#3DB8F5] font-bold text-md"> { data.fuelType }</span>
-                <span className=" text-[#3DB8F5] font-bold text-md"> { data.color }</span>
             </div>
         </div>
     );
